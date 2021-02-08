@@ -7,4 +7,6 @@ public interface UserService {
 
     void loginUser(String username);
 
+    void logoutCurrentUser();
+
 }

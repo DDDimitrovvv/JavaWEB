@@ -31,6 +31,13 @@ public class LoginController {
         }
 
     }
+
+
+    @PostMapping("/users/logout")
+    public String logout() {
+            userService.logoutCurrentUser();
+            return "redirect:/users/login";
+
+    }
 }
 
-//commit message: Project mobilele: Updated Login functionality

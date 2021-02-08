@@ -9,5 +9,6 @@ public class MobileleApplication {
     public static void main(String[] args) {
         SpringApplication.run(MobileleApplication.class, args);
     }
-
 }
+
+//commit message: Project mobilele: Created user roles(ADMIN && USER). Created two users. Created navigation fragment with thymeleaf properties.
