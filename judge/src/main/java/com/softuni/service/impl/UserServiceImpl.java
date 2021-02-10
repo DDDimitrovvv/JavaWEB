@@ -4,6 +4,7 @@ import com.softuni.model.entity.RoleNameEnum;
 import com.softuni.model.entity.UserEntity;
 import com.softuni.model.service.UserEntityServiceModel;
 import com.softuni.repository.UserRepository;
+import com.softuni.security.CurrentUser;
 import com.softuni.service.RoleService;
 import com.softuni.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,11 +16,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final RoleService roleService;
+    private final CurrentUser currentUser;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleService roleService) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleService roleService, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.roleService = roleService;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -37,5 +40,21 @@ public class UserServiceImpl implements UserService {
                 .findByUsernameAndPassword(username, password)
                 .map(user -> modelMapper.map(user, UserEntityServiceModel.class))
                 .orElse(null);
+    }
+
+    @Override
+    public void login(UserEntityServiceModel userEntityServiceModel) {
+        currentUser
+                .setId(userEntityServiceModel.getId())
+                .setUsername(userEntityServiceModel.getUsername())
+                .setRole(userEntityServiceModel.getRole().getName());
+    }
+
+    @Override
+    public void logout() {
+        currentUser
+                .setId(null)
+                .setUsername(null)
+                .setRole(null);
     }
 }

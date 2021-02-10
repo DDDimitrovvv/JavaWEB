@@ -6,4 +6,8 @@ public interface UserService {
     void registerUser(UserEntityServiceModel userEntityServiceModel);
 
     UserEntityServiceModel findUserByUsernameAndPassword(String username, String password);
+
+    void login(UserEntityServiceModel userEntityServiceModel);
+
+    void logout();
 }
