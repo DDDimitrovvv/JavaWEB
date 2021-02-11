@@ -10,6 +10,9 @@ import com.softuni.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -56,5 +59,32 @@ public class UserServiceImpl implements UserService {
                 .setId(null)
                 .setUsername(null)
                 .setRole(null);
+    }
+
+    @Override
+    public List<String> findAllUsernames() {
+        return userRepository.findAllUsernames();
+    }
+
+    @Override
+    public void changeRole(String username, RoleNameEnum roleNameEnum) {
+
+        //We can use UserEntity instead of Optional
+
+        Optional<UserEntity> user = userRepository
+                .findByUsername(username);
+
+        if (user.isPresent()) {
+            if (user.get().getRole().getName() != roleNameEnum) {
+                user.get().setRole(roleService.findRole(roleNameEnum));
+                userRepository.save(user.get());
+            }
+        }
+
+    }
+
+    @Override
+    public UserEntity findById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

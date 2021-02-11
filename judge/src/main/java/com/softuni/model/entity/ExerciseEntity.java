@@ -16,7 +16,7 @@ public class ExerciseEntity extends BaseEntity{
     public ExerciseEntity() {
     }
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     public String getName() {
         return name;
     }
