@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -42,11 +41,9 @@ public class DBInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         BrandEntity fordBrand = new BrandEntity();
         fordBrand.setName("Ford");
-        setCurrentTimestamps(fordBrand);
 
         BrandEntity hondaBrand = new BrandEntity();
         hondaBrand.setName("Honda");
-        setCurrentTimestamps(hondaBrand);
 
         brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 
@@ -73,7 +70,6 @@ public class DBInit implements CommandLineRunner {
                 setUsername("admin").
                 setPassword(passwordEncoder.encode("topsecret")).
                 setUserRoles(List.of(adminRole, userRole));
-        setCurrentTimestamps(admin);
 
         UserEntity pesho = new UserEntity();
         pesho.setFirstName("Petar").
@@ -81,7 +77,6 @@ public class DBInit implements CommandLineRunner {
                 setUsername("pesho").
                 setPassword(passwordEncoder.encode("topsecret")).
                 setUserRoles(List.of(userRole));
-        setCurrentTimestamps(pesho);
 
         userRepository.saveAll(List.of(admin, pesho));
     }
@@ -99,7 +94,6 @@ public class DBInit implements CommandLineRunner {
                 .setTransmission(TransmissionEnum.MANUAL)
                 .setModel(modelEntity);
 
-        setCurrentTimestamps(fiestaOffer);
 
         offerRepository.save(fiestaOffer);
     }
@@ -112,7 +106,6 @@ public class DBInit implements CommandLineRunner {
                 .setImageUrl("https://www.mitchellsmc.co.uk/wp-content/uploads/2020/07/IMG_0686.jpg")
                 .setStartYear(2014)
                 .setBrand(hondaBrand);
-        setCurrentTimestamps(NC750S);
 
         return modelRepository.save(NC750S);
 
@@ -127,7 +120,6 @@ public class DBInit implements CommandLineRunner {
                 .setStartYear(1968)
                 .setEndYear(2002)
                 .setBrand(fordBrand);
-        setCurrentTimestamps(escort);
 
         return modelRepository.save(escort);
 
@@ -141,14 +133,8 @@ public class DBInit implements CommandLineRunner {
                 .setImageUrl("https://upload.wikimedia.org/wikipedia/commons/7/7d/2017_Ford_Fiesta_Zetec_Turbo_1.0_Front.jpg")
                 .setStartYear(1976)
                 .setBrand(fordBrand);
-        setCurrentTimestamps(fiesta);
 
         return modelRepository.save(fiesta);
 
-    }
-
-    private static void setCurrentTimestamps(BaseEntity baseEntity) {
-        baseEntity.setCreated(Instant.now());
-        baseEntity.setUpdated(Instant.now());
     }
 }
