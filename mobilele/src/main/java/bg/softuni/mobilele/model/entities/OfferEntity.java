@@ -2,12 +2,13 @@ package bg.softuni.mobilele.model.entities;
 
 import bg.softuni.mobilele.model.entities.enums.EngineEnum;
 import bg.softuni.mobilele.model.entities.enums.TransmissionEnum;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "offers")
-public class OfferEntity extends BaseEntity{
+public class OfferEntity extends BaseEntity {
 
 //   description – some text.
 //   engine – enumerated value (GASOLINE, DIESEL, ELECTRIC, HYBRID).
@@ -40,9 +41,8 @@ public class OfferEntity extends BaseEntity{
     @ManyToOne
     private ModelEntity model;
 
-//    @ManyToOne
-//    private UserEntity user;
-
+    @ManyToOne
+    private UserEntity user;
 
 
     public String getDescription() {
@@ -117,14 +117,14 @@ public class OfferEntity extends BaseEntity{
         return this;
     }
 
-//    public UserEntity getUser() {
-//        return user;
-//    }
-//
-//    public OfferEntity setUser(UserEntity user) {
-//        this.user = user;
-//        return this;
-//    }
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public OfferEntity setUser(UserEntity user) {
+        this.user = user;
+        return this;
+    }
 
     @Override
     public String toString() {
